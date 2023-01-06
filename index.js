@@ -5,6 +5,7 @@ const { token } = require('./config.json');
 const { ActivityType } = require('discord.js');
 
 
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
@@ -45,6 +46,8 @@ client.once(Events.ClientReady, async(client) => {
 
 	
 });
+
+
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;

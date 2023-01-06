@@ -59,12 +59,26 @@ module.exports = {
 			.setAuthor({ name: "Member Banned" })
 			.setColor("Blue")
 			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Banned by ${member.displayName}` })
 			.setTimestamp();
 
 
-		return interaction.reply({
+//send the success embed to the channel where the interaction was sent as well as another channel in the server
+		interaction.reply({
+			embeds: [successEmbed],
+			ephemeral: false
+		})
+
+		//send the success embed to another channel
+		const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
+		if (!channel) return;
+		channel.send({
 			embeds: [successEmbed]
 		})
+
+
+
+
 
 	}
 }

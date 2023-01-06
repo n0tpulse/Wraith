@@ -69,6 +69,7 @@ module.exports = {
             .setAuthor({ name: "Member timed out" })
             .setColor("Green")
             .setDescription(`**Member:** ${target}\n**Duration:** ${duration}\n**Reason:** ${reason}`)
+            .setFooter({ text: `Timed out by ${member.displayName}` })
             .setTimestamp();
 
 

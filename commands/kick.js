@@ -49,7 +49,7 @@ module.exports = {
                 ephemeral: true
             });
 
-        target.kick({ reason: reason}).catch((err) => {
+        target.kick({ reason: reason }).catch((err) => {
             interaction.reply({
                 embeds: [errorsEmbed.setDescription("Could not Kick member due to an error.")]
             })
@@ -60,12 +60,18 @@ module.exports = {
             .setAuthor({ name: "Member Kicked" })
             .setColor("Blue")
             .setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+            .setFooter({ text: `Kicked by ${member.displayName}` })
             .setTimestamp();
 
 
-            return interaction.reply({
-                embeds: [successEmbed]
-            })
+        interaction.reply({
+            embeds: [successEmbed]
+        })
+        const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
+        if (!channel) return;
+        channel.send({
+            embeds: [successEmbed]
+        })
 
     }
 }
