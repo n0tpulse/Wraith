@@ -23,12 +23,12 @@ client.once(Events.ClientReady, async(client) => {
 		const options = [
 			{
 			type: ActivityType.Watching,
-			name: 'Pulse code me', 
+			name: 'Change me', 
 			status: "online"
 			},
 			{
 			type: ActivityType.Playing,
-			name: 'Horizon Roleplay',
+			name: 'Change me',
 			status: "online"
 			},
 		
