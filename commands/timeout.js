@@ -73,9 +73,17 @@ module.exports = {
             .setTimestamp();
 
 
-            return interaction.reply({
+         interaction.reply({
                 embeds: [successEmbed]
             })
+            const channel = guild.channels.cache.find(channel => channel.id === "Input Channel ID");
+            if (!channel) return;
+            channel.send({
+                embeds: [successEmbed]
+            })
+    
+
+            
 
     }
 }
