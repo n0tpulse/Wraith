@@ -5,7 +5,6 @@ module.exports = {
         .setName('connect')
         .setDescription('Provides a connect code to the server'),
     async execute(interaction) {
-        //Wwrite a button that says "Join Here" and when clicked, it sends the user to the connect codes location
         const row = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
