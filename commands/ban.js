@@ -70,7 +70,7 @@ module.exports = {
 		})
 
 		//send the success embed to another channel
-		const channel = guild.channels.cache.find(channel => channel.id === "Input Channel ID");
+		const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
 		if (!channel) return;
 		channel.send({
 			embeds: [successEmbed]

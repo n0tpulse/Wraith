@@ -10,6 +10,6 @@ module.exports = {
 		// interaction.user is the object representing the User who ran the command
 		// interaction.member is the GuildMember object, which represents the user in the specific guild
 		//respond with the user's username and join date
-		await interaction.reply(`This user is ${target}, who joined on **${target.joinedAt}**.`);
+		await interaction.reply(`This user is ${target}, who joined on **${target.joinedAt}**. Their ID is **${target.id}**. Their highest role is **${target.roles.highest}**. They have **${target.roles.cache.size}** roles.`);
 	},
 };

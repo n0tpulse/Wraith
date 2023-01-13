@@ -49,6 +49,9 @@ client.once(Events.ClientReady, async(client) => {
 
 
 
+
+
+
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
