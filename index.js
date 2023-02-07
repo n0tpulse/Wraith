@@ -1,9 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, Intents, FLAGS, GUILDS } = require('discord.js');
 const { token } = require('./config.json');
 const { ActivityType } = require('discord.js');
-
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -18,34 +17,48 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-client.once(Events.ClientReady, async(client) => {
+client.once(Events.ClientReady, async (client) => {
 	console.log('Ready!');
-		const options = [
-			{
+	const options = [
+		{
 			type: ActivityType.Watching,
-			name: 'Pulse code me', 
+			name: 'Pulse code me',
 			status: "online"
-			},
-			{
+		},
+		{
 			type: ActivityType.Playing,
 			name: 'Horizon Roleplay',
 			status: "online"
-			},
-		
-		]
+		},
 
+	]
+
+	const random = Math.floor(Math.random() * options.length);
+	const activity = options[random];
+	setInterval(() => {
 		const random = Math.floor(Math.random() * options.length);
 		const activity = options[random];
-		setInterval(() => {
-			const random = Math.floor(Math.random() * options.length);
-			const activity = options[random];
 		client.user.setActivity(activity.name, { type: activity.type });
 	}, 10000);
 
 
 
-	
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//write a discordjs event that makes a reaction role when a user reacts to a message with a specific emoji they get a role
+
 
 
 
