@@ -5,6 +5,6 @@ module.exports = {
         .setName('web')
         .setDescription('Provides a link to the website.'),
     async execute(interaction) {
-        await interaction.reply('your website here');
+        await interaction.reply('http://horizon-rp.xyz');
     }
 };
