@@ -12,7 +12,7 @@ module.exports = {
             .setColor("Blue")
             .setTimestamp()
             .setFooter({ text: "Requested by " + interaction.user.tag })
-            const server = await request('http://45.88.229.114:30120/dynamic.json')
+            const server = await request('http://serverip:port/dynamic.json')
             const players = await server.body.json()
             embed.setDescription(`There are currently ${players.clients}/${players.sv_maxclients} players on the server.`);
             interaction.reply({ embeds: [embed] });
