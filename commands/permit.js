@@ -17,7 +17,7 @@ module.exports = {
             ViewChannel: true,
         });
         const embed = new EmbedBuilder()
-            .setTitle('Permitted')
+            .setTitle('Permitted User')
             .setDescription(`${user} has been permitted to view this channel`)
             .setColor('BLUE')
         await interaction.reply({ embeds: [embed] });
