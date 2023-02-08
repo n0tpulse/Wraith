@@ -22,6 +22,7 @@ module.exports = {
             .addFields([
                 { name: `**${setTitle}**`, value: `${setText}`, inline: true },
             ])
+            .setColor('#df0de7')
         await interaction.reply({ embeds: [embed] });
     },
 };

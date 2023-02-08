@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const { ActivityType } = require('discord.js');
+const { request } = require('undici');
 
 
 
@@ -18,18 +19,29 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 client.once(Events.ClientReady, async(client) => {
 	console.log('Ready!');
 		const options = [
 			{
 			type: ActivityType.Watching,
-			name: 'Change me', 
-			status: "online"
+			name: 'Pulse Code me', 
+			status: "dnd"
 			},
 			{
 			type: ActivityType.Playing,
-			name: 'Change me',
-			status: "online"
+			name: 'HorizonRP',
+			status: "dnd"
 			},
 		
 		]
@@ -46,6 +58,7 @@ client.once(Events.ClientReady, async(client) => {
 
 	
 });
+
 
 
 
