@@ -10,7 +10,7 @@ module.exports = {
             new ButtonBuilder()
                 .setLabel('Join Here!')
                 .setStyle(ButtonStyle.Link)
-                .setURL('cfx.re/join/lbjmv7')
+                .setURL('your cfx.re/join link')
         );
 
     await interaction.reply({ content: 'Join The server by clicking below!', components: [row] });
