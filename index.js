@@ -4,6 +4,9 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const { ActivityType } = require('discord.js');
 const { request } = require('undici');
+const { EmbedBuilder } = require('discord.js');
+const { clientId } = require('./config.json');
+
 
 
 
@@ -21,8 +24,17 @@ for (const file of commandFiles) {
 
 
 
-
-
+//write a client event that sends an embed to a channel when the bot joins a discord
+client.once(Events.ClientReady, async(client) => {
+	console.log('Ready!');
+	const channel = client.channels.cache.get('1060424996943560765');
+	const embed = new EmbedBuilder()
+		.setTitle('Bot is online!')
+		.setDescription('The bot is now online!')
+		.setColor('#aa1107')
+		.setTimestamp()
+	channel.send({ embeds: [embed] });
+});
 
 
 
@@ -31,7 +43,6 @@ for (const file of commandFiles) {
 
 
 client.once(Events.ClientReady, async(client) => {
-	console.log('Ready!');
 		const options = [
 			{
 			type: ActivityType.Watching,

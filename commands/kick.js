@@ -5,7 +5,7 @@ module.exports = {
         .setName('kick')
         .setDescription('Kick a specific user.')
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-        .setDMPermission(true)
+        .setDMPermission(false)
         .addUserOption(options => options
             .setName('target')
             .setDescription('The user to Kick.')
@@ -18,14 +18,10 @@ module.exports = {
         ),
 
     async execute(interaction) {
-
         const { options, guild, member } = interaction;
-
         const target = options.getMember('target');
         const reason = options.getString('reason') || 'No reason provided.';
-
         const errorsArray = [];
-
         const errorsEmbed = new EmbedBuilder()
             .setAuthor({ name: "Could not Kick member due to" })
             .setColor("Red")
@@ -49,12 +45,7 @@ module.exports = {
                 ephemeral: true
             });
 
-        target.kick({ reason: reason }).catch((err) => {
-            interaction.reply({
-                embeds: [errorsEmbed.setDescription("Could not Kick member due to an error.")]
-            })
-            return console.log("Error occoured in Kick command: ", err)
-        });
+
 
         const successEmbed = new EmbedBuilder()
             .setAuthor({ name: "Member Kicked" })
@@ -63,16 +54,41 @@ module.exports = {
             .setFooter({ text: `Kicked by ${member.displayName}` })
             .setTimestamp();
 
+            const userEmbed = new EmbedBuilder()
+			.setAuthor({ name: "You have been Kicked" })
+			.setColor("Green")
+			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Kicked by ${member.displayName}` })
+			.setTimestamp();
+
+		const dmFailEmbed = new EmbedBuilder()
+			.setAuthor({ name: `Could not send message to user` })
+			.setColor("Red")
+			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Kicked by ${member.displayName}` })
+			.setTimestamp();
 
         interaction.reply({
             embeds: [successEmbed]
         })
-        const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
+
+        target.send({ embeds: [userEmbed] }).catch((err) => {
+            interaction.followUp({ embeds: [dmFailEmbed] })
+            return console.log("Error occoured in Kick command: ")
+        })
+
+
+        const channel = guild.channels.cache.find(channel => channel.name === "audit-log");
 		if (!channel) return;
 		channel.send({
 			embeds: [successEmbed]
 		})
-
-
+        
+        target.kick({ reason: reason }).catch((err) => {
+            interaction.reply({
+                embeds: [errorsEmbed.setDescription("Could not Kick member due to an error.")]
+            })
+            return console.log("Error occoured in Kick command: ", err)
+        });
     }
 }

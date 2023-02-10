@@ -5,7 +5,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('count')
         .setDescription('Get the number of players on the server.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+        .setDMPermission(false),
     async execute(interaction) {
         const embed = new EmbedBuilder()
             .setTitle("Server Player Count")   

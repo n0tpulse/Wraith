@@ -64,7 +64,7 @@ module.exports = {
             })
             return console.log("Error occoured in timeout command: ", err)
         });
-
+        const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
         const successEmbed = new EmbedBuilder()
             .setAuthor({ name: "Member timed out" })
             .setColor("Green")
@@ -72,11 +72,33 @@ module.exports = {
             .setFooter({ text: `Timed out by ${member.displayName}` })
             .setTimestamp();
 
+            const userEmbed = new EmbedBuilder()
+            .setAuthor({ name: "You have been timed out" })
+            .setColor("Green")
+            .setDescription(`**Member:** ${target}\n**Duration:** ${duration}\n**Reason:** ${reason}`)
+            .setFooter({ text: `Timed out by ${member.displayName}` })
+            .setTimestamp();
+
+            const dmFailEmbed = new EmbedBuilder()
+            .setAuthor({ name: `Could not send message to user` })
+            .setColor("Red")
+            .setDescription(`**Member:** ${target}\n**Duration:** ${duration}\n**Reason:** ${reason}`)
+            .setFooter({ text: `Timed out by ${member.displayName}` })
+            .setTimestamp();
+
+
+
 
          interaction.reply({
                 embeds: [successEmbed]
             })
-            const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
+
+            target.send({ embeds: [userEmbed] }).catch (err => {
+                    if (err)channel.send({embeds: [dmFailEmbed] })
+                return;
+            })
+
+
             if (!channel) return;
             channel.send({
                 embeds: [successEmbed]

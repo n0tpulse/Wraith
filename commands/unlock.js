@@ -1,14 +1,12 @@
-//write a discordjs command that locksdown the channel from being typed in 
-
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unlock')
-        .setDescription('Locks down the channel from being typed in.'),
+        .setDescription('Locks down the channel from being typed in.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
+        .setDMPermission(false),
     async execute(interaction) {
-        const channel = interaction.channel;
         const everyoneRole = interaction.guild.roles.everyone;
         interaction.channel.permissionOverwrites.edit(everyoneRole, {
             SendMessages: true,

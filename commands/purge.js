@@ -5,6 +5,7 @@ module.exports = {
 		.setName('purge')
 		.setDescription('Purge up to 99 messages.')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+		.setDMPermission(false)
 		.addIntegerOption(option => option.setName('amount').setDescription('Number of messages to purge')),
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');

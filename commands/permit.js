@@ -1,16 +1,15 @@
-const { EmbedBuilder } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
-
+const { SlashCommandBuilder, PermissionFlagsBits,  EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('permit')
         .setDescription('permits a user to view a channel')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
+        .setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('The user to permit')
                 .setRequired(true)),
     async execute(interaction) {
-        //set the permissions of the user mentioned to not be able to view the channel the command was used in
         const channel = interaction.channel;
         const user = interaction.options.getUser('user');
         channel.permissionOverwrites.create(user, {

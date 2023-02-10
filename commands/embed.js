@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('embed')
         .setDescription('Embeds are cool!')
+        .setDMPermission(false)
         .addStringOption(option =>
             option.setName('embedtitle')
                 .setDescription('Embed')
@@ -13,7 +14,6 @@ module.exports = {
             option.setName('embedtext')
                 .setDescription('Embed')
                 .setRequired(true)),
-
 
     async execute(interaction) {
         const setTitle = interaction.options.getString('embedtitle');

@@ -18,21 +18,39 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-
 		const { options, guild, member } = interaction;
-
 		const target = options.getMember('target');
 		const reason = options.getString('reason') || 'No reason provided.';
-
+		const channel = guild.channels.cache.find(channel => channel.name === "audit-log");
 		const errorsArray = [];
-
 		const errorsEmbed = new EmbedBuilder()
 			.setAuthor({ name: "Could not Ban member due to" })
 			.setColor("Red")
 
+		const userEmbed = new EmbedBuilder()
+			.setAuthor({ name: "You have been Banned" })
+			.setColor("Green")
+			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Banned by ${member.displayName}` })
+			.setTimestamp();
+
+		const dmFailEmbed = new EmbedBuilder()
+			.setAuthor({ name: `Could not send message to user` })
+			.setColor("Red")
+			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Banned by ${member.displayName}` })
+			.setTimestamp();
+
+		const successEmbed = new EmbedBuilder()
+			.setAuthor({ name: "Member Banned" })
+			.setColor("Green")
+			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
+			.setFooter({ text: `Banned by ${member.displayName}` })
+			.setTimestamp();
+
 
 		if (!target) return interaction.reply({
-			embeds: [errorsEmbed.setDescription("Member Has most likely left the serveer")],
+			embeds: [errorsEmbed.setDescription("Member Has most likely left the server")],
 			ephemeral: true
 		})
 
@@ -48,37 +66,31 @@ module.exports = {
 				ephemeral: true
 			});
 
-		target.ban({ reason: reason}).catch((err) => {
-			interaction.reply({
-				embeds: [errorsEmbed.setDescription("Could not Ban member due to an error.")]
-			})
-			return console.log("Error occoured in Ban command: ", err)
-		});
 
-		const successEmbed = new EmbedBuilder()
-			.setAuthor({ name: "Member Banned" })
-			.setColor("Blue")
-			.setDescription(`**Member:** ${target}\n**Reason:** ${reason}`)
-			.setFooter({ text: `Banned by ${member.displayName}` })
-			.setTimestamp();
+			//sending the embeds to the audit logs as well as the user
 
+		channel.send({ embeds: [successEmbed] })
 
-//send the success embed to the channel where the interaction was sent as well as another channel in the server
-		interaction.reply({
-			embeds: [successEmbed],
-			ephemeral: false
+		target.send({ embeds: [userEmbed] }).catch(err => {
+			if (err) return; channel.send({ embeds: [dmFailEmbed] })
+
 		})
 
-		//send the success embed to another channel
-		const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
-		if (!channel) return;
-		channel.send({
+		interaction.reply({
 			embeds: [successEmbed]
 		})
 
 
 
 
+
+
+		target.ban({ reason: reason }).catch((err) => {
+			interaction.reply({
+				embeds: [errorsEmbed.setDescription("Could not Ban member due to an error.")]
+			})
+			return console.log("Error occoured in Ban command: ", err)
+		});
 
 	}
 }

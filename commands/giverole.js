@@ -1,12 +1,11 @@
-//write a command to give someone a role defined in a role option
-
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('giverole')
         .setDescription('Gives a user a role.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles)
+        .setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('The user to give the role to')
