@@ -43,15 +43,13 @@ client.once(Events.ClientReady, async(client) => {
 
 
 client.once(Events.ClientReady, async(client) => {
+	const server = await request('http://45.88.229.114:30120/dynamic.json')
+const players = await server.body.json()
+
 		const options = [
 			{
 			type: ActivityType.Watching,
-			name: 'Pulse Code me', 
-			status: "dnd"
-			},
-			{
-			type: ActivityType.Playing,
-			name: 'HorizonRP',
+			name: `${players.clients}/${players.sv_maxclients} players on HorizonRP`,
 			status: "dnd"
 			},
 		
@@ -59,14 +57,12 @@ client.once(Events.ClientReady, async(client) => {
 
 		const random = Math.floor(Math.random() * options.length);
 		const activity = options[random];
+		client.user.setActivity(activity.name, { type: activity.type });
 		setInterval(() => {
 			const random = Math.floor(Math.random() * options.length);
 			const activity = options[random];
 		client.user.setActivity(activity.name, { type: activity.type });
 	}, 10000);
-
-
-
 	
 });
 
