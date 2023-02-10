@@ -7,6 +7,8 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false),
     async execute(interaction) {
+        const {  guild, member } = interaction;
+        const channel = guild.channels.cache.find(channel => channel.name === "audit-log");
         const everyoneRole = interaction.guild.roles.everyone;
         interaction.guild.channels.cache.forEach(channel => {
             channel.permissionOverwrites.edit(everyoneRole, {
@@ -14,5 +16,7 @@ module.exports = {
             });
         })
         await interaction.reply('Locked down the server.');
+
+        channel.send({ content: `**Administrator** ${member.displayName} Globally locked the server \`\`${guild.name}\`\`` })
     }
 }
