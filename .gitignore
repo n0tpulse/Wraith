@@ -1,4 +1,4 @@
-node_modules
+
 packages/package.json
 packages/package-lock.json
 config.json
