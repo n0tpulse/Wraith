@@ -16,6 +16,7 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
+        const { options, guild, member } = interaction;
         const setTitle = interaction.options.getString('embedtitle');
         const setText = interaction.options.getString('embedtext');
         const embed = new EmbedBuilder()
@@ -23,6 +24,9 @@ module.exports = {
                 { name: `**${setTitle}**`, value: `${setText}`, inline: true },
             ])
             .setColor('#df0de7')
+            .setTimestamp()
+            .setFooter({ text: `Author: ${member.displayName}` })
+
         await interaction.reply({ embeds: [embed] });
     },
 };

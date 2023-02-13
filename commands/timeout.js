@@ -64,7 +64,7 @@ module.exports = {
             })
             return console.log("Error occoured in timeout command: ", err)
         });
-        const channel = guild.channels.cache.find(channel => channel.id === "1060007338263711844");
+        const channel = guild.channels.cache.find(channel => channel.name === "audit-log");
         const successEmbed = new EmbedBuilder()
             .setAuthor({ name: "Member timed out" })
             .setColor("Green")
