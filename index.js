@@ -27,7 +27,7 @@ for (const file of commandFiles) {
 //write a client event that sends an embed to a channel when the bot joins a discord
 client.once(Events.ClientReady, async (client) => {
 	console.log('Ready!');
-	const channel = client.channels.cache.get('1060424996943560765');
+	const channel = client.channels.cache.find(c => c.name === 'audit-log');
 	const embed = new EmbedBuilder()
 		.setTitle('Bot is online!')
 		.setDescription('The bot is now online!')
