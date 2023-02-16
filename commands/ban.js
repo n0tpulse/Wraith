@@ -80,11 +80,6 @@ module.exports = {
 			embeds: [successEmbed]
 		})
 
-
-
-
-
-
 		target.ban({ reason: reason }).catch((err) => {
 			interaction.reply({
 				embeds: [errorsEmbed.setDescription("Could not Ban member due to an error.")]
