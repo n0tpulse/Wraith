@@ -1,4 +1,3 @@
-//write a command that displays specific commands 
 const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 const {  PermissionFlagsBits} = require('discord.js');
