@@ -87,8 +87,6 @@ module.exports = {
             .setTimestamp();
 
 
-
-
          interaction.reply({
                 embeds: [successEmbed]
             })
@@ -103,9 +101,7 @@ module.exports = {
             channel.send({
                 embeds: [successEmbed]
             })
-    
 
-            
 
     }
 }
