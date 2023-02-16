@@ -1,4 +1,3 @@
-//write a command to grab the number of members in a fivem server from the API here https://servers-frontend.fivem.net/api/servers/single/lbjmv7 and display it in an embed using undici
 const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder } = require('discord.js');
 const { request } = require('undici');
 module.exports = {
