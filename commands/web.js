@@ -1,4 +1,3 @@
-//write a discordjs command that tells people the link to a website
 const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
