@@ -5,7 +5,6 @@ const { token } = require('./config.json');
 const { ActivityType } = require('discord.js');
 const { request } = require('undici');
 const { EmbedBuilder } = require('discord.js');
-const { clientId } = require('./config.json');
 
 
 
@@ -35,7 +34,6 @@ client.once(Events.ClientReady, async (client) => {
 		.setTimestamp()
 	channel.send({ embeds: [embed] });
 });
-
 
 
 
