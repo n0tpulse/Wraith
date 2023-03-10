@@ -23,7 +23,9 @@ for (const file of commandFiles) {
 
 
 
-//write a client event that sends an embed to a channel when the bot joins a discord
+
+
+//bot shows online
 client.once(Events.ClientReady, async (client) => {
 	console.log('Ready!');
 	const channel = client.channels.cache.find(c => c.name === 'audit-log');
@@ -35,24 +37,19 @@ client.once(Events.ClientReady, async (client) => {
 	channel.send({ embeds: [embed] });
 });
 
-
-
-
-
-
+//bot status
 client.once(Events.ClientReady, async (client) => {
-	const server = await request('http://45.88.229.114:30120/dynamic.json')
-	const players = await server.body.json()
-
 	const options = [
+
 		{
 			type: ActivityType.Watching,
-			name: `${players.clients}/${players.sv_maxclients} players on HorizonRP`,
-			status: "dnd"
+			name: `HorizonRP`,
+			status: "streaming",
+
 		},
 
-	]
 
+	];
 	const random = Math.floor(Math.random() * options.length);
 	const activity = options[random];
 	client.user.setActivity(activity.name, { type: activity.type });
@@ -65,14 +62,7 @@ client.once(Events.ClientReady, async (client) => {
 });
 
 
-
-
-
-
-
-
-
-
+//command handler code
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
@@ -89,28 +79,12 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
+const { url } = require('node:inspector');
 
+//change this role ID 
 const ROLES = {
-	BLUE: '1054652752959115275'
+	CIT: '1054652752959115275'
 };
-
-client.on(Events.ClientReady, async (client) => {
-
-	const channel = client.channels.cache.get('1060007338263711844');
-
-	channel.send({
-		content: 'Click the button below to get the citizen role',
-		components: [
-			new ActionRowBuilder().setComponents(
-				new ButtonBuilder()
-					.setCustomId('BLUE')
-					.setLabel('Citizen')
-					.setStyle(ButtonStyle.Primary),
-			),
-		],
-	});
-
-});
 
 client.on('interactionCreate', async (interaction) => {
 	if (interaction.isButton()) {
@@ -161,10 +135,5 @@ client.on('interactionCreate', async (interaction) => {
 			});
 	}
 });
-
-
-
-
-
 
 client.login(token);
